@@ -89,9 +89,9 @@ This document provides details for testing the `Users` and `Auth` endpoints in t
 
 #### 2. **Get User Details**
 - **Endpoint**: `POST /users/details`
-- **Description**: Retrieves user details using an access token for authentication.
+- **Description**: User details by authenticating the access token.
 - **Headers**:
-  - `Authorization: Bearer <access_token>`
+  - `access-token: <refresh_token>`
   
   Example Request:
   ```bash
@@ -149,7 +149,7 @@ This document provides details for testing the `Users` and `Auth` endpoints in t
 - **Endpoint**: `POST /auth/refresh`
 - **Description**: Refreshes the access token using the refresh token.
 - **Headers**:
-  - `refresh_token: <refresh_token>`
+  - `refresh-token: <refresh_token>`
 
 - **Response**:
   - **Status Code**: `200 OK`
