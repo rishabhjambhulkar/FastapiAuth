@@ -1,7 +1,6 @@
 from passlib.context import CryptContext
-from fastapi.security import OAuth2PasswordBearer
 from starlette.authentication import AuthCredentials, UnauthenticatedUser
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
 from jose import jwt, JWTError
 from core.config import get_settings
 from fastapi import Depends
@@ -10,11 +9,7 @@ from user.models import UserModel
 
 settings = get_settings()
 
-
-
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 def get_password_hash(password):
     return pwd_context.hash(password)
@@ -29,8 +24,13 @@ async def create_access_token(data,  expiry: timedelta):
     payload.update({"exp": expire_in})
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
-async def create_refresh_token(data):
-    return jwt.encode(data, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+
+async def create_refresh_token(data,expiry: timedelta):
+    
+    payload = data.copy()
+    expire_in = datetime.utcnow() + expiry
+    payload.update({"exp": expire_in})
+    return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
 def get_token_payload(token):
@@ -41,10 +41,21 @@ def get_token_payload(token):
     return payload
 
 
-def get_current_user(token: str , db = None):
+
+def get_current_user(token: str, db=None):
     payload = get_token_payload(token)
+    print("payload: ", payload)
     if not payload or type(payload) is not dict:
         return None
+    print("Current user", payload)
+   
+    exp = payload.get('exp', None)
+    print('exp',exp)
+    if exp:
+       
+        exp_time = datetime.fromtimestamp(exp, tz=timezone.utc)
+        if datetime.now(timezone.utc) > exp_time:
+            return None
 
     user_id = payload.get('id', None)
     if not user_id:
@@ -55,6 +66,7 @@ def get_current_user(token: str , db = None):
 
     user = db.query(UserModel).filter(UserModel.id == user_id).first()
     return user
+
 
 
 
