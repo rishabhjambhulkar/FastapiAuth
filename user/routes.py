@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, Request
+from fastapi import APIRouter, status, Depends, Request, Header
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from core.db import getDb
@@ -26,8 +26,8 @@ async def create_user(data: CreateUserRequest, db: Session = Depends(getDb)):
 
 
 @router.post('/details', status_code=status.HTTP_200_OK)
-async def get_user_detail(token: str, db: Session = Depends(getDb)):
-    user = get_current_user(token=token, db=db)
+async def get_user_detail(access_token: str = Header(), db: Session = Depends(getDb)):
+    user = get_current_user(token=access_token, db=db)
     
     if not user:
         raise HTTPException(
