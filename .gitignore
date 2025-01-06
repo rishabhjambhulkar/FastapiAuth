@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+*.env
+.env/
+venv/
+*.venv
+
+# Database
+db.sqlite3
+*.db
+
+# IDE specific
+*.idea/
+*.vscode/
+*.suo
+*.swp
+
+# Compiled Python files
+*.pyc
+
+# Distribution / Packaging
+*.egg-info/
+.dist-info/
+build/
+dist/
+
+# Test-related
+*.egg
+
+# Cache files
+*.tox
+*.nox
+
+# FastAPI development-related files
+fastapi_logs.log
