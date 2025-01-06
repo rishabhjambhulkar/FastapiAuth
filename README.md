@@ -19,7 +19,7 @@ This document provides details for testing the `Users` and `Auth` endpoints in t
   Example Request:
   ```json
   {
-    "username": "example_user",
+    "name": "example_user",
     "email": "example@example.com",
     "password": "securepassword123"
   }
@@ -53,7 +53,7 @@ This document provides details for testing the `Users` and `Auth` endpoints in t
     ```json
     {
       "id": 1,
-      "username": "example_user",
+      "name": "example_user",
       "email": "example@example.com"
     }
     ```
