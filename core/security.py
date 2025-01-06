@@ -41,7 +41,7 @@ def get_token_payload(token):
     return payload
 
 
-def get_current_user(token: str = Depends(oauth2_scheme), db = None):
+def get_current_user(token: str , db = None):
     payload = get_token_payload(token)
     if not payload or type(payload) is not dict:
         return None
