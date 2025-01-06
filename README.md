@@ -1,4 +1,55 @@
+### Installation Guide and Running FastAPI Application
 
+#### 1. **Installation Guide**
+
+To set up and run the FastAPI application, follow these steps:
+
+##### Step 1: Install Dependencies
+
+1. Clone the repository or download the project:
+   ```bash
+   git clone https://github.com/your-repository.git
+   cd your-repository
+   ```
+
+2. Navigate to the project directory and create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+
+3. Activate the virtual environment:
+   - On Windows:
+     ```bash
+     .\venv\Scripts\activate
+     ```
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. Install the dependencies from the `requirements.txt` file:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+##### Step 2: Run FastAPI Application
+
+1. Make sure your database (e.g., PostgreSQL, SQLite, or any other database) is set up and running.
+
+2. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+3. Access the FastAPI application at:
+   - `http://localhost:8000`
+
+---
+
+
+---
+
+This setup will allow you to run and test the FastAPI application effectively.
 
 ### FastAPI API Documentation for User Management and Authentication
 
